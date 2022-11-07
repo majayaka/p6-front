@@ -28,9 +28,10 @@ app.use((req, res, next) => {
   });
 
 // Set up routes of user
- app.use('/api/auth', userRoutes);
+app.use('/api/auth', userRoutes);
 // Set up routes of sauce
- app.use('/api/sauces', sauceRoutes);
-
+app.use('/api/sauces', sauceRoutes);
+// Set up routes of images
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
