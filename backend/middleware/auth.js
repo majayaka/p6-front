@@ -1,14 +1,28 @@
+//Import of package jwt to create tokens
 const jwt = require('jsonwebtoken');
 
+//Export of middleware 
 module.exports = (req, res, next) => {
+    // verification of data
     try {
-        const token = req.headers.authorization.split(' ')[1]; // Extract the token from the header
-        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // Decode the token
-        const userId = decodedToken.userId; // Extract the user ID from the token
-        req.auth ={
-            userId: userId
+        // Extraction of token from header
+        const token = req.headers.authorization.split(' ')[1]; 
+        // Decode the token
+        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); 
+        // Extraction of user id from token
+        const userId = decodedToken.userId; 
+        // verification of user id is the same as the one in the request
+        if (req.body.useId && req.body.useId !== userId) {
+            // If not the same, error message
+            throw 'user Id is not valid';
+        } else {
+            // If the same, next
+            next();
         }
-    } catch(error) {
-        res.status(401).json({ error });
+    } catch {
+        // After 4 attempts, error message 402
+        res.status(402).json({
+            error: new Error('Invalid request!')
+        });
     }
 };

@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 // Import Mongoose
 const mongoose = require('mongoose');
+// Import of the path module to define the path
+const path = require('path');
 
 // Import of routes
 const userRoutes = require('./routes/user');
@@ -16,7 +18,7 @@ mongoose.connect('mongodb+srv://ayaka:ayaka@atlascluster.ixrmsel.mongodb.net/?re
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-// Integration of Middleware, which will allow us to use the body of the request
+// To change the request into sJSON format
 app.use(express.json());
 
 // Headers to avoid CORS errors
@@ -34,4 +36,5 @@ app.use('/api/sauces', sauceRoutes);
 // Set up routes of images
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
+// Export of the app
 module.exports = app;
