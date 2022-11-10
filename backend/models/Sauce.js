@@ -1,5 +1,6 @@
 //Import of the mongoose package
 const mongoose = require('mongoose');
+const {ObjectId} = mongoose.Schema.Types;
 
 
 //Creation of the sauce schema
@@ -13,8 +14,8 @@ const sauceSchema = mongoose.Schema({
     heat: { type: Number, required: true},
     likes: { type: Number, default: 0},
     dislikes: { type: Number, default: 0},
-    usersLiked: { type: String, default: []},
-    usersDisliked: { type: String, default: []}
+    usersLiked: { type: [String], required: true},
+    usersDisliked: { type: [String], required: true}
 });
 
 // Export of schema Sauce

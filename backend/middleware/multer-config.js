@@ -23,4 +23,8 @@ const storage = multer.diskStorage({
 });
 
 // Export of middleware
-module.exports = multer({ storage: storage }).single('image');
+module.exports = multer({
+     storage: storage 
+    }).single('image');  // this single() creates a middleware 
+    //that captures files of a certain type (passed as an argument), 
+    //and saves them to the server file system using the configured storage.
